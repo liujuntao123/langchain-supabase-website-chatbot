@@ -64,15 +64,15 @@ export const runScrape= async ()=>{
   }
 }
 
-(async function run(urls: string[]) {
-  try {
-    //load data from each url
-    const rawDocs = await extractDataFromUrls(urls);
-    //split docs into chunks for openai context window
-    const docs = await splitDocsIntoChunks(rawDocs);
-    //embed docs into supabase
-    await embedDocuments(supabaseClient, docs, new OpenAIEmbeddings());
-  } catch (error) {
-    console.log('error occured:', error);
-  }
-})(urls);
+// (async function run(urls: string[]) {
+//   try {
+//     //load data from each url
+//     const rawDocs = await extractDataFromUrls(urls);
+//     //split docs into chunks for openai context window
+//     const docs = await splitDocsIntoChunks(rawDocs);
+//     //embed docs into supabase
+//     await embedDocuments(supabaseClient, docs, new OpenAIEmbeddings());
+//   } catch (error) {
+//     console.log('error occured:', error);
+//   }
+// })(urls);
