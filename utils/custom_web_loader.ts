@@ -18,7 +18,7 @@ export class CustomWebLoader
     const response = await fetch(url);
     console.log('fetch success')
     const html = await response.text();
-    console.log('html',html)
+    // console.log('html',html)
     return load(html);
   }
 
@@ -29,7 +29,9 @@ export class CustomWebLoader
   async load(): Promise<Document[]> {
     const $ = await this.scrape();
     const title = $('.content h1').text();
-    const date = $('meta[property="article:published_time"]').attr('content');
+    console.log('title',title)
+    // const date = $('meta[property="article:published_time"]').attr('content');
+    const date=''
 
     const content = $('.vt-doc')
       .clone()

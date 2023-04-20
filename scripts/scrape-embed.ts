@@ -6,7 +6,7 @@ import { Embeddings, OpenAIEmbeddings } from 'langchain/embeddings';
 import { SupabaseVectorStore } from 'langchain/vectorstores';
 import { RecursiveCharacterTextSplitter } from 'langchain/text_splitter';
 import { supabaseClient } from '@/utils/supabase-client';
-import { urls } from '@/config/notionurls';
+import { urls } from '@/config/vueurls';
 
 async function extractDataFromUrl(url: string): Promise<Document[]> {
   try {
