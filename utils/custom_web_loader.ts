@@ -14,7 +14,9 @@ export class CustomWebLoader
 
   static async _scrape(url: string): Promise<CheerioAPI> {
     const { load } = await CustomWebLoader.imports();
+    console.log('fetch url',url)
     const response = await fetch(url);
+    console.log('fetch success')
     const html = await response.text();
     return load(html);
   }
