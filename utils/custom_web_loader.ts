@@ -18,6 +18,7 @@ export class CustomWebLoader
     const response = await fetch(url);
     console.log('fetch success')
     const html = await response.text();
+    console.log('html',html)
     return load(html);
   }
 
@@ -36,6 +37,8 @@ export class CustomWebLoader
       .remove()
       .end()
       .text();
+      
+      console.log('content',content)
 
     const cleanedContent = content.replace(/\s+/g, ' ').trim();
 
