@@ -51,6 +51,19 @@ async function splitDocsIntoChunks(docs: Document[]): Promise<Document[]> {
   return await textSplitter.splitDocuments(docs);
 }
 
+export const runScrape= async ()=>{
+  try {
+    //load data from each url
+    const rawDocs = await extractDataFromUrls(urls);
+    //split docs into chunks for openai context window
+    const docs = await splitDocsIntoChunks(rawDocs);
+    //embed docs into supabase
+    await embedDocuments(supabaseClient, docs, new OpenAIEmbeddings());
+  } catch (error) {
+    console.log('error occured:', error);
+  }
+}
+
 (async function run(urls: string[]) {
   try {
     //load data from each url
