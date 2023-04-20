@@ -40,7 +40,7 @@ export class CustomWebLoader
       .end()
       .text();
       
-      console.log('content',content)
+      // console.log('content',content)
 
     const cleanedContent = content.replace(/\s+/g, ' ').trim();
 
