@@ -4,7 +4,7 @@ import { BaseDocumentLoader } from 'langchain/document_loaders';
 import type { DocumentLoader } from 'langchain/document_loaders';
 import { CheerioWebBaseLoader } from 'langchain/document_loaders';
 
-export class CustomWebLoader
+export class CustomWebUrlLoader
   extends BaseDocumentLoader
   implements DocumentLoader
 {
@@ -13,35 +13,23 @@ export class CustomWebLoader
   }
 
   static async _scrape(url: string): Promise<CheerioAPI> {
-    const { load } = await CustomWebLoader.imports();
+    const { load } = await CustomWebUrlLoader.imports();
     const response = await fetch(url);
     const html = await response.text();
     return load(html);
   }
 
   async scrape(): Promise<CheerioAPI> {
-    return CustomWebLoader._scrape(this.webPath);
+    return CustomWebUrlLoader._scrape(this.webPath);
   }
 
-  async load(): Promise<Document[]> {
+  async load(): Promise<Array<string>> {
     const $ = await this.scrape();
-    const title = $('.content h1').text();
-    const date = $('meta[property="article:published_time"]').attr('content');
-
-    const content = $('.vt-doc')
-      .clone()
-      .find('div.elementor, style')
-      .remove()
-      .end()
-      .text();
-
-    const cleanedContent = content.replace(/\s+/g, ' ').trim();
-
-    const contentLength = cleanedContent?.match(/\b\w+\b/g)?.length ?? 0;
-
-    const metadata = { source: this.webPath, title, date, contentLength };
-
-    return [new Document({ pageContent: cleanedContent, metadata })];
+    const links:Array<string> =[]
+     $('#VPSidebarNav  section  a.link').each((i, link) => {
+        links.push($(link).attr('href')||'');
+      });
+    return links
   }
 
   static async imports(): Promise<{
